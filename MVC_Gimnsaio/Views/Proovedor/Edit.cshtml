@@ -1,0 +1,30 @@
+@model Proovedor
+@{
+    ViewData["Title"] = "Editar Proovedor";
+}
+    <br />
+<h1>@ViewData["Title"]</h1>
+    <br />
+<form method="post">
+    <div class="mb-3">
+        <label>Nombre:</label>
+        <input asp-for="nombreProovedor" class="form-control" placeholder="Ingrese el Nombre del Proovedor">
+    </div>
+    <div class="mb-3">
+        <label>Duración Contrato:</label>
+        <input asp-for="duracionContrato" class="form-control" placeholder="Ingrese la duración del Contrato">
+    </div>
+    <div class="mb-3">
+        <label>Precio Importacion:</label>
+        <input asp-for="precioImportacion" class="form-control" placeholder="Ingrese el precio de Importacion">
+    </div>
+        <br />
+    <div class="row col-6">
+        <div class="col-6 col-md-6">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+        <div class="col-6 col-md-6">
+            <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+</form>

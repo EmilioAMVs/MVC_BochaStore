@@ -1,0 +1,22 @@
+@model Marca
+@{
+    ViewData["Title"] = "Crear Marca";
+}
+    <br />
+<h1 class="text-secondary">@ViewData["Title"]</h1>
+    <br />
+<form method="post" class="text-success">
+    <div class="mb-3">
+        <label>Nombre:</label>
+        <input asp-for="nombreMarca" class="form-control" placeholder="Ingrese el nombre de la Marca">
+    </div>
+        <br />
+    <div class="row col-6">
+        <div class="col-3 col-md-3">
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+        <div class="col-3 col-md-3">
+            <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+</form>

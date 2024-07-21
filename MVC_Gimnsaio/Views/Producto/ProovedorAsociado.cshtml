@@ -1,0 +1,25 @@
+@model Proovedor
+
+@{
+    ViewData["Title"] = "Proovedor Asociado";
+}
+    <br>
+<h1 class="">@ViewData["Title"]</h1>
+    <br />
+<form method="post" class="text-info">
+    <div class="mb-3">
+        <label>Id Proovedor: @Model.idProovedor </label>
+    </div>   
+    <div class="mb-3">
+        <label>Duracion de Contrato: @Model.duracionContrato Meses</label>
+    </div>    
+    <div class="mb-3">
+        <label>Precio de Importacion: @Model.precioImportacion</label>
+    </div>    
+        <br />
+    <div class="row col-6">
+        <div class="col-6 col-md-6">
+            <a asp-action="Index" class="btn btn-info">Regresar</a>
+        </div>
+    </div>
+</form>

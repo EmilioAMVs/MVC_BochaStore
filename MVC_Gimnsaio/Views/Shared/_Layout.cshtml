@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]- Bocha Store</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+<header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+                <a class="navbar-brand keychainify-checked" asp-area="" asp-controller="Home" asp-action="Index">Bocha Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Producto" asp-action="Index">Productos</a>
+                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Proovedor" asp-action="Index">Proovedores</a>
+                        </li>
+                    <li class="nav-item">
+                      <a class="nav-link keychainify-checked" asp-area="" asp-controller="Marca" asp-action="Index">Marcas</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-between align-items-center gap-3 me-2">
+                <span id="nombreUsuario"></span>
+                <div class="btn-group dropdown-center">
+                    <button type="button" class="btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </button>
+                    <ul class="dropdown-menu left-class">
+                        <li><a class="dropdown-item w-100" asp-controller="Usuario" asp-action="SignIn">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/acf261d014.js" crossorigin="anonymous"></script>
+@await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Realizar la solicitud para obtener el nombre de usuario
+            const response = await fetch('@Url.Action("GetUsername", "Usuario")');
+
+            // Verificar si la solicitud fue exitosa
+            if (response.ok) {
+                const result = await response.json();
+                const username = result.username;
+
+                // Verificar si el nombre de usuario no es nulo
+                if (username) {
+                    // Actualizar el contenido del span con el mensaje
+                    document.getElementById('nombreUsuario').innerHTML = "Bienvenido " + username + ' a su gimnasio preferido <i class="fa-solid fa-dumbbell"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

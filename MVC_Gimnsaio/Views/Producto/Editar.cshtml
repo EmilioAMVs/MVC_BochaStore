@@ -1,0 +1,50 @@
+@model Producto
+@{
+    ViewData["Title"] = "Editar Productos";
+}
+    <br />
+<h1 class="text">@ViewData["Title"]</h1>
+    <br />
+<form method="post" class="text-success">
+    <div class="mb-3">
+        <label>Nombre:</label>
+        <input asp-for="nombreProducto" class="form-control" placeholder="Ingrese el nuevo nombre">
+    </div>
+    <div class="mb-3">
+        <label>Descripcion:</label>
+        <input asp-for="descripcionProducto" class="form-control" placeholder="Ingrese el nuevo apellido">
+    </div>
+    <div class="mb-3">
+        <label>Precio:</label>
+        <input asp-for="precio" type="number" class="form-control" placeholder="Ingrese el nuevo correo">
+    </div>
+    <div class="mb-3">
+        <label>Stock:</label>
+        <input asp-for="stock" type="number" class="form-control" placeholder="Ingrese el nuevo stock">
+    </div>
+    <div class="mb-3">
+        <label>Proovedor:</label>
+        <select asp-for="idProovedor" asp-items="ViewBag.Proovedor" class="form-control">
+            <option value="ViewBag.Proovedor.idProovedor"></option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Marca:</label>
+        <select asp-for="idMarca" asp-items="ViewBag.Marca" class="form-control">
+            <option value="ViewBag.Marca.idMarca"></option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Fecha inscripción:</label>
+        <input asp-for="fechaInscripcion" type="date" class="form-control" placeholder="Ingrese la fecha">
+    </div>
+    <div class="row col-6">
+        <div class="col-6 col-md-6">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+        <div class="col-6 col-md-6">
+            <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+</form>

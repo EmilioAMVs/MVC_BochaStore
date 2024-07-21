@@ -1,0 +1,49 @@
+@model List<MVC_BOCHA_STORE.Models.Producto>
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+    <br />
+<h1>@ViewData["Title"]</h1>
+    <br />
+<table class="table table-hover text-center">
+    <thead >
+    <tr class="table-primary">
+        <th scope="col" >Id Producto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Opciones</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr class="table-active">
+            <th scope="row">@item.idProducto</th>
+            <td>@item.nombreProducto </td>
+            <td>@item.descripcionProducto</td>
+            <td>@item.stock</td>
+            <td>@item.precio</td>
+
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    
+                    <a asp-action="VerDetalleProducto" asp-route-idProducto="@item.idProducto" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                    <a asp-action="Editar" asp-route-idProducto="@item.idProducto" class="btn btn-primary"> <i class="bi bi-pencil-square"></i></a>
+                        <a asp-action="Delete" asp-route-idProducto="@item.idProducto" class="btn btn-danger" asp-confirm="¿Estás seguro de que quieres borrar este producto?,"Si","No">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    <a asp-action="ProovedorAsociado" asp-route-idProducto="@item.idProducto" class="btn btn-secondary">Ver Proovedor</a>
+                    <a asp-action="MarcaAsociada" asp-route-idProducto="@item.idProducto" class="btn btn-light">Ver Marca </a>
+                </div>
+
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Producto")'">Nuevo Producto</button>

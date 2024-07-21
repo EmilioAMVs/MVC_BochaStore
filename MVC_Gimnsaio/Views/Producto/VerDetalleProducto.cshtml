@@ -1,0 +1,31 @@
+@model Producto
+@{
+    ViewData["Title"] = "Detalle Producto";
+}
+    <br />
+<h1>@ViewData["Title"]</h1>
+    <br />
+<form method="post">
+    <div class="mb-3">
+        <label class="text-secondary" bl>Nombre: @Model.nombreProducto </label>
+    </div>
+    <div class="mb-3">
+        <label class="text-secondary">Descripcion: @Model.descripcionProducto </label>
+    </div>
+    <div class="mb-3">
+        <label class="text-success">Precio: @Model.precio</label>
+    </div>
+    <div class="mb-3">
+        <label class="text-success">Stock: @Model.stock</label>
+    </div>
+    <div class="mb-3">
+        <label class="text-light">Fecha inscripción: @Model.fechaInscripcion</label>
+    </div>    
+        <br />
+    <div class="row col-6">
+        <div class="col-6 col-md-6">
+            <a asp-action="Index" class="btn btn-info">Regresar</a>
+        </div>
+    </div>
+</form>
+

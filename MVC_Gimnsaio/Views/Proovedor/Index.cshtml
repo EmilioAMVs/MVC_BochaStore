@@ -1,0 +1,40 @@
+@model List<MVC_BOCHA_STORE.Models.Proovedor>
+@{
+    ViewData["Title"] = "Lista de Proovedores";
+}
+    <br />
+<h1>@ViewData["Title"]</h1>
+    <br />
+
+<table class="table table-hover text-center">
+    <thead>
+    <tr class="table-secondary">
+        <th scope="col">Id Proovedor</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Duracion Contrato</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Opciones</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row">@item.idProovedor</th>
+            <td>@item.nombreProovedor</td>
+            <td>@item.duracionContrato  Meses</td>
+            <td>@item.precioImportacion  $</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <a asp-action="Details" asp-route-idProovedor="@item.idProovedor" class="btn btn-light">Ver detalles <i class="bi bi-eye"></i></a>
+                    <a asp-action="Edit" asp-route-idProovedor="@item.idProovedor" class="btn btn-success">Editar <i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-route-idProovedor="@item.idProovedor" class="btn btn-danger">Borrar <i class="bi bi-trash-fill"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<br />
+<button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Create", "Proovedor")'">Nuevo Proovedor</button>

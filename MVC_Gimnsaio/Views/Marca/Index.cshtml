@@ -1,0 +1,36 @@
+@model List<MVC_BOCHA_STORE.Models.Marca>
+@{
+    ViewData["Title"] = "Lista de Marcas";
+}
+    <br />
+<h1>@ViewData["Title"]</h1>
+    <br />
+<table class="table table-hover text text-center">
+    <thead>
+    <tr class="table-info">
+        <th scope="col">Id Marca</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Opciones</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr class="table-active">
+            <th scope="row">@item.idMarca</th>
+            <td>@item.nombreMarca</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <a asp-action="Details" asp-route-idMarca="@item.idMarca" class="btn btn-primary">Ver detalles <i class="bi bi-eye"></i></a>
+                    <a asp-action="Edit" asp-route-idMarca="@item.idMarca" class="btn btn-success">Editar <i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-route-idMarca="@item.idMarca" class="btn btn-danger">Borrar <i class="bi bi-trash-fill"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+    <br />
+<button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Create", "Marca")'">Nueva Marca</button>
+

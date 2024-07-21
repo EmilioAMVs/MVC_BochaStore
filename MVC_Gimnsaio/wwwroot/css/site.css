@@ -1,0 +1,98 @@
+html {
+    font-size: 20px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/* Estilos customizados */
+
+.a-text-color {
+
+    text-decoration: none !important;
+
+}
+
+.body-styles-SignUp {
+
+    height: 100vh;
+    background-image: url(../images/register.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.body-styles-SignIn {
+
+    height: 100vh;
+    background-image: url(../images/login.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.login-form {
+
+    display: flex;
+    padding: 3em;
+    flex-flow: column nowrap;
+    width: 40%;
+    backdrop-filter: blur(7px);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2em;
+    border: solid 1px;
+
+}
+
+.form-styles {
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1em;
+
+}
+
+.background-rgba {
+
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.left-class {
+
+    left: -100px !important;
+
+}
+
+.light-text {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+}
+
+.medium-text {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+}

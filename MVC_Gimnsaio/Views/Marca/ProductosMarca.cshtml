@@ -1,0 +1,59 @@
+@model List<MVC_BOCHA_STORE.Models.Producto>
+@{
+    ViewData["Title"] = "Lista de Productos de la Marca";
+}
+    <br />
+<h1>@ViewData["Title"]</h1>
+    <br />
+<table class="table table-hover text-center">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Opciones</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row">@item.idMarca</th>
+            <td>@item.nombreProducto</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <a asp-action="Details" asp-route-idMarca="@item.idMarca" class="btn btn-danger">Ver detalles <i class="bi bi-eye"></i></a>
+                    <a asp-action="Edit" asp-route-idMarca="@item.idMarca" class="btn btn-danger">Editar <i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-route-idMarca="@item.idMarca" class="btn btn-warning">Borrar <i class="bi bi-trash-fill"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+    <br />
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Marca")'">Nueva Marca</button>
+
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewData["Model"] as List<Producto>)
+        {
+            <tr>
+                <th scope="row">@item.idProducto</th>
+                <td>@item.nombreProducto</td>
+                <td>@item.descripcionProducto</td>
+                <td>
+                    <a href="@Url.Action("Details", "Producto", new { id = item.idProducto })">Ver detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
