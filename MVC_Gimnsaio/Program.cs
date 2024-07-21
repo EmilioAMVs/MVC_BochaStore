@@ -1,4 +1,6 @@
 using MVC_BOCHA_STORE.Service;
+using Azure.Messaging.ServiceBus;
+using static MVC_BOCHA_STORE.Service.ServiceBusService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,15 @@ builder.Services.AddScoped<IAPIServiceProovedor, APIServiceProovedor>();
 builder.Services.AddScoped<IAPIServiceMarca, APIServiceMarca>();
 builder.Services.AddScoped<IAPIServiceProducto, APIServiceProducto>();
 builder.Services.AddScoped<IAPIServiceUsuario, APIServiceUsuario>();
+
+// Configuración de Azure Service Bus
+var serviceBusSettings = builder.Configuration.GetSection("ServiceBusQueues");
+string serviceBusConnectionString = builder.Configuration.GetConnectionString("ServiceBusConnectionString");
+string productsQueueName = serviceBusSettings["ProductsQueueName"];
+string suppliersQueueName = serviceBusSettings["SuppliersQueueName"];
+string brandsQueueName = serviceBusSettings["BrandsQueueName"];
+builder.Services.AddSingleton<IServiceBusService>(new ServiceBusService(serviceBusConnectionString, productsQueueName, suppliersQueueName, brandsQueueName));
+
 
 // Agregar el servicio de sesión aquí
 builder.Services.AddDistributedMemoryCache();

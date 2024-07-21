@@ -10,12 +10,14 @@ public class ProductoController : Controller
     private readonly IAPIServiceProducto _apiService;
     private readonly IAPIServiceProovedor _apiServiceProovedor;
     private readonly IAPIServiceMarca _apiServiceMarca;
+    private readonly IServiceBusService _busService;
 
-    public ProductoController(IAPIServiceProducto IAPIService, IAPIServiceProovedor APIServiceProovedor, IAPIServiceMarca APIServiceMarca)
+    public ProductoController(IAPIServiceProducto IAPIService, IAPIServiceProovedor APIServiceProovedor, IAPIServiceMarca APIServiceMarca, IServiceBusService busService)
     {
         _apiService = IAPIService;
         _apiServiceProovedor = APIServiceProovedor;
         _apiServiceMarca = APIServiceMarca;
+        _busService = busService;
     }
 
     // // GET: ProductoController
@@ -48,6 +50,12 @@ public class ProductoController : Controller
             {
                 // Invoco a la API y le envío el nuevo producto
                 await _apiService.CreateProducto(producto);
+
+                // Enviar un mensaje a la cola de Service Bus
+                await _busService.SendMessageAsync($"Product added: \n Id: {producto.idProducto}" +
+                    $"\n Name:{producto.nombreProducto}\n Description: {producto.descripcionProducto}" +
+                    $"\n Price: {producto.precio}",QueueType.Products);
+
                 // Redirige a la vista principal
                 return RedirectToAction("Index");
             }
@@ -114,6 +122,7 @@ public class ProductoController : Controller
             if (idProducto != 0)
             {
                 await _apiService.DeleteProducto(idProducto);
+                await _busService.SendMessageAsync($"Product with id: {idProducto} removed", QueueType.Products);
                 return RedirectToAction("Index");
             }
         }
@@ -186,5 +195,6 @@ public class ProductoController : Controller
         }
         return RedirectToAction("Index");
     }
+
 }
        

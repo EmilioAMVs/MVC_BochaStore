@@ -6,10 +6,13 @@ namespace MVC_BOCHA_STORE.Controllers;
 public class MarcaController : Controller
 {
     private readonly IAPIServiceMarca _apiService;
+    private readonly IServiceBusService _busService;
 
-    public MarcaController(IAPIServiceMarca IAPIService)
+    public MarcaController(IAPIServiceMarca IAPIService, IServiceBusService busService)
     {
         _apiService = IAPIService;
+        _busService = busService;
+
     }
 
     // // GET: ProductoController
@@ -41,6 +44,11 @@ public class MarcaController : Controller
             {
                 // Invoca a la API y envio la nueva marca
                 await _apiService.CreateMarca(marca);
+
+                // Enviar un mensaje a la cola de Service Bus
+                await _busService.SendMessageAsync($"Brand added: \n Id: {marca.idMarca}" +
+                    $"\n Name:{marca.nombreMarca}", QueueType.Brands);
+
                 // Redirije a la vista principal
                 return RedirectToAction("Index");
             }
@@ -104,6 +112,7 @@ public class MarcaController : Controller
             if (idMarca != 0)
             {
                 await _apiService.DeleteMarca(idMarca);
+                await _busService.SendMessageAsync($"Bran with id: {idMarca}", QueueType.Brands);
                 return RedirectToAction("Index");
             }
         }

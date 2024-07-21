@@ -7,10 +7,11 @@ namespace MVC_BOCHA_STORE.Controllers;
 public class ProovedorController : Controller
 {
     private readonly IAPIServiceProovedor _apiService;
-
-    public ProovedorController( IAPIServiceProovedor IAPIService)
+    private readonly IServiceBusService _busService;
+    public ProovedorController( IAPIServiceProovedor IAPIService, IServiceBusService busService)
     {
         _apiService = IAPIService;
+        _busService = busService;
     }
     
     // // GET: ProovedorController
@@ -41,9 +42,13 @@ public class ProovedorController : Controller
                 if (proovedor != null)
                 {
                     // Invoca a la API y envia el nuevo proovedor
-                    await _apiService.CreateProovedor(proovedor); 
-                    // Redirije a la vista principal
-                    return RedirectToAction("Index"); 
+                    await _apiService.CreateProovedor(proovedor);
+                // Enviar un mensaje a la cola de Service Bus
+                await _busService.SendMessageAsync($"Supllier added: \n Id: {proovedor.idProovedor}" +
+                    $"\n Name:{proovedor.nombreProovedor}\n Contract Duration: {proovedor.duracionContrato}" +
+                    $"\n Importation Price: {proovedor.precioImportacion}", QueueType.Suppliers);
+                // Redirije a la vista principal
+                return RedirectToAction("Index"); 
                 }
 
             } catch (Exception error)
@@ -103,6 +108,7 @@ public class ProovedorController : Controller
                 if (idProovedor != 0)
                 {
                     await _apiService.DeleteProovedor(idProovedor);
+                await _busService.SendMessageAsync($"Supplier with id: {idProovedor} removed", QueueType.Suppliers);
                     return RedirectToAction("Index");
                 }
             }
